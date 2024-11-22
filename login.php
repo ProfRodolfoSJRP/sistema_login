@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try {
         // Prepara a Instrução SQL para Execução
-        $stmt = $conn->prepare("SELECT id_cliente, senha FROM Usuarios 
+        $stmt = $conn->prepare("SELECT id_cliente, senha, nome FROM Usuarios 
                                 where email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
@@ -35,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Armazena o ID do usuário e o estado de login 
                 $_SESSION['usuario_id'] = $usuario['id_cliente'];
                 $_SESSION['logado'] = true;
+                $_SESSION['nome'] = $usuario['nome'];
 
                 // Redireciona o usuário para a página do painel após login
                 header("Location: painel.php");
